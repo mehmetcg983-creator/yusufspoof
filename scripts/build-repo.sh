@@ -20,7 +20,59 @@ if [ ! -d "$package_dir" ]; then
 fi
 
 mkdir -p "$output_dir"
-find "$output_dir" -maxdepth 1 -type f \( -name '*.deb' -o -name 'Packages*' -o -name 'Release' \) -delete
+cat > "$output_dir/index.html" <<'HTML'
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>YusufSpoofer Repo</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #10161d;
+        color: #e6edf3;
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+      }
+      .card {
+        max-width: 760px;
+        background: #171d26;
+        border: 1px solid #2b3746;
+        border-radius: 14px;
+        padding: 32px 40px;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+      }
+      h1 {
+        margin-top: 0;
+        font-size: 2rem;
+      }
+      p {
+        color: #c4d0dc;
+        line-height: 1.7;
+      }
+      code {
+        background: rgba(255,255,255,0.06);
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-family: monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>YusufSpoofer APT Repo</h1>
+      <p>This is the package repository for YusufSpoofer.</p>
+      <p>Repository URL:</p>
+      <p><code>https://mehmetcg983-creator.github.io/yusufspoof</code></p>
+      <p>Use this URL in your package manager or Sileo source list.</p>
+    </div>
+  </body>
+</html>
+HTML
+find "$output_dir" -maxdepth 1 -type f \( -name '*.deb' -o -name 'Packages*' -o -name 'Release' -o -name 'index.html' \) -delete
 find "$package_dir" -maxdepth 1 -type f -name '*.deb' -exec cp '{}' "$output_dir/" \;
 
 if ! find "$output_dir" -maxdepth 1 -type f -name '*.deb' -print -quit | grep -q .; then
