@@ -1,0 +1,8 @@
+Package: com.yusufspoofer
+Name: YusufSpoofer
+Version: 1.0.0
+Architecture: iphoneos-arm64
+Description: Per-process iOS version spoofing tweak for rootless iOS.
+Maintainer: Yusuf
+Author: Yusuf
+Section: Tweaks
